@@ -51,6 +51,7 @@
           lineNumbers: true,
           autofocus: true,
           lineWrapping: true,
+          keyMap: 'vim',
           styleActiveLine: true,
           lineNumberFormatter (line) {
             if (line % 10 === 0 || line === 1) {
