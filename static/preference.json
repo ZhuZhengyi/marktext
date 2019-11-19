@@ -57,6 +57,7 @@
   "sideBarVisibility": false,
   "tabBarVisibility": false,
   "sourceCodeModeEnabled": false,
+  "markMapModeEnabled": false,
 
   "searchExclusions": [],
   "searchMaxFileSize": "",

@@ -636,7 +636,8 @@ const actions = {
         lineEnding,
         sideBarVisibility,
         tabBarVisibility,
-        sourceCodeModeEnabled
+        sourceCodeModeEnabled,
+        markMapModeEnabled
       } = config
 
       dispatch('SEND_INITIALIZED')
@@ -650,7 +651,7 @@ const actions = {
 
       commit('SET_MODE', {
         type: 'sourceCode',
-        checked: !!sourceCodeModeEnabled
+        checked: !!sourceCodeModeEnabled && !!markMapModeEnabled
       })
 
       if (addBlankTab) {

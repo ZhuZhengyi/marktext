@@ -2,6 +2,8 @@ import { getMenuItemById } from '../../menu'
 
 const typewriterModeMenuItemId = 'typewriterModeMenuItem'
 const focusModeMenuItemId = 'focusModeMenuItem'
+const sourceCodeModeMenuItemId = 'sourceCodeModeMenuItem'
+const markMapModeMenuItemId = 'markMapModeMenuItem'
 
 export const showCommandPalette = win => {
   win.webContents.send('mt::show-command-palette')
@@ -15,10 +17,20 @@ export const typeMode = (win, type, item) => {
   win.webContents.send('mt::editor-change-view', { type, checked })
 
   if (type === 'sourceCode') {
+    const markMapModeMenuItem = getMenuItemById(markMapModeMenuItemId)
     const typewriterModeMenuItem = getMenuItemById(typewriterModeMenuItemId)
     const focusModeMenuItem = getMenuItemById(focusModeMenuItemId)
     typewriterModeMenuItem.enabled = !checked
     focusModeMenuItem.enabled = !checked
+    markMapModeMenuItem.enabled = !checked
+  }
+  if (type === 'markMap') {
+    const sourceCodeModeMenuItem = getMenuItemById(sourceCodeModeMenuItemId)
+    const typewriterModeMenuItem = getMenuItemById(typewriterModeMenuItemId)
+    const focusModeMenuItem = getMenuItemById(focusModeMenuItemId)
+    typewriterModeMenuItem.enabled = !checked
+    focusModeMenuItem.enabled = !checked
+    sourceCodeModeMenuItem.enabled = !checked
   }
 }
 
@@ -62,6 +74,9 @@ export const viewLayoutChanged = (applicationMenu, changes) => {
         break
       case 'sourceCode':
         changeMenuByName('sourceCodeModeMenuItem', value)
+        break
+      case 'markMap':
+        changeMenuByName('markMapModeMenuItem', value)
         break
       case 'typewriter':
         changeMenuByName(typewriterModeMenuItemId, value)
