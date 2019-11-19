@@ -66,6 +66,7 @@
     "katex": "^0.11.1",
     "keyboard-layout": "^2.0.16",
     "keytar": "5.0.0-beta.4",
+    "markmap": "^0.6.1",
     "mermaid": "^8.4.1",
     "plist": "^3.0.1",
     "popper.js": "^1.16.0",

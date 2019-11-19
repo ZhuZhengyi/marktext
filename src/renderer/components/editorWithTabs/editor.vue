@@ -1,7 +1,7 @@
 <template>
   <div
     class="editor-wrapper"
-    :class="[{ 'typewriter': typewriter, 'focus': focus, 'source': sourceCode }]"
+    :class="[{ 'typewriter': typewriter, 'focus': focus, 'source': sourceCode , 'markmap': markMap }]"
     :style="{ 'lineHeight': lineHeight, 'fontSize': `${fontSize}px`,
     'font-family': editorFontFamily ? `${editorFontFamily}, ${defaultFontFamily}` : `${defaultFontFamily}` }"
     :dir="textDirection"
@@ -163,7 +163,8 @@ export default {
       // edit modes
       typewriter: state => state.preferences.typewriter,
       focus: state => state.preferences.focus,
-      sourceCode: state => state.preferences.sourceCode
+      sourceCode: state => state.preferences.sourceCode,
+      markMap: state => state.preferences.markMap
     })
   },
   data () {
@@ -438,6 +439,12 @@ export default {
     },
     sourceCode: function (value, oldValue) {
       if (value && value !== oldValue) {
+        this.editor && this.editor.hideAllFloatTools()
+      }
+    },
+    markMap: function (value, oldValue) {
+      if (value && value !== oldValue) {
+        this.scrollToCursor(0)
         this.editor && this.editor.hideAllFloatTools()
       }
     }
@@ -728,6 +735,13 @@ export default {
           alt
         })
       }
+      if (id && this.markMap) {
+        bus.$emit('image-action', {
+          id,
+          result,
+          alt
+        })
+      }
 
       return result
     },
@@ -858,7 +872,7 @@ export default {
     },
 
     handleSelectAll () {
-      if (this.editor && !this.sourceCode && this.editor.hasFocus()) {
+      if (this.editor && !this.sourceCode && !this.markMap && this.editor.hasFocus()) {
         this.editor.selectAll()
       } else {
         const activeElement = document.activeElement
@@ -877,7 +891,7 @@ export default {
     },
 
     insertImage (src) {
-      if (!this.sourceCode) {
+      if (!this.sourceCode && !this.markMap) {
         this.editor && this.editor.insertImage({ src })
       }
     },
