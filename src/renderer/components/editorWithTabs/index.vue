@@ -1,6 +1,7 @@
 <template>
     <div
       class="editor-with-tabs"
+      :style="[ autoSwitchTheme == 1 ? { 'background': 'transparent !important'} : {}]"
     >
       <tabs v-show="showTabBar"></tabs>
       <div class="container">
@@ -31,6 +32,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import Tabs from './tabs.vue'
 import Editor from './editor.vue'
 import SourceCode from './sourceCode.vue'
@@ -75,6 +77,11 @@ export default {
       required: true
     }
   },
+  computed: {
+    ...mapState({
+      autoSwitchTheme: state => state.preferences.autoSwitchTheme
+    })
+  },
   components: {
     Tabs,
     Editor,
@@ -93,7 +100,6 @@ export default {
     flex: 1;
     display: flex;
     flex-direction: column;
-
     overflow: hidden;
     background: var(--editorBgColor);
     & > .container {
