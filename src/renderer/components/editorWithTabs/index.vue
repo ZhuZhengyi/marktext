@@ -1,15 +1,10 @@
 <template>
     <div
       class="editor-with-tabs"
+      :style="[ autoSwitchTheme == 1 ? { 'background': 'transparent !important'} : {}]"
     >
       <tabs v-show="showTabBar"></tabs>
       <div class="container">
-        <editor
-          :markdown="markdown"
-          :cursor="cursor"
-          :text-direction="textDirection"
-          :platform="platform"
-        ></editor>
         <source-code
           v-if="sourceCode"
           :markdown="markdown"
@@ -17,15 +12,22 @@
           :text-direction="textDirection"
         ></source-code>
         <marp
-          v-if="marp"
+          v-else-if="marp"
           :markdown="markdown"
         ></marp>
+        <editor v-else
+          :markdown="markdown"
+          :cursor="cursor"
+          :text-direction="textDirection"
+          :platform="platform"
+        ></editor>
       </div>
       <tab-notifications></tab-notifications>
     </div>
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import Tabs from './tabs.vue'
 import Editor from './editor.vue'
 import SourceCode from './sourceCode.vue'
@@ -65,6 +67,11 @@ export default {
       required: true
     }
   },
+  computed: {
+    ...mapState({
+      autoSwitchTheme: state => state.preferences.autoSwitchTheme
+    })
+  },
   components: {
     Tabs,
     Editor,
@@ -82,7 +89,6 @@ export default {
     flex: 1;
     display: flex;
     flex-direction: column;
-
     overflow: hidden;
     background: var(--editorBgColor);
     & > .container {

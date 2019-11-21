@@ -57,6 +57,7 @@ class EditorWindow extends BaseWindow {
       sideBarVisibility,
       tabBarVisibility,
       sourceCodeModeEnabled,
+      vibrancyType,
       marpModeEnabled
     } = preferences.getAll()
     if (!isOsx) {
@@ -70,6 +71,10 @@ class EditorWindow extends BaseWindow {
 
     let win = this.browserWindow = new BrowserWindow(winOptions)
     this.id = win.id
+    if (isOsx) {
+      win.setBackgroundColor('#00000000')
+      win.setVibrancy(vibrancyType)
+    }
 
     // Create a menu for the current window
     appMenu.addEditorMenu(win, { sourceCodeModeEnabled })

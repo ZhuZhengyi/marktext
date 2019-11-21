@@ -13,7 +13,6 @@ import { MarpRenderer, MarpSlide } from '@marp-team/marp-vue'
 
 const options = {
   inlineSVG: true,
-  theme: u
   emoji: {
     shortcode: true,
     unicode: true
