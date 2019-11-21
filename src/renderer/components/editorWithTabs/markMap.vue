@@ -1,6 +1,10 @@
 <template>
   <div class="mark-map" ref="markMap">
-      <svg class="svg-mindmap" ref="svgMindMap" id="mindmap"></svg>
+      <svg class="mind-map" ref="mindMap" id="mindmap">
+        <g class="markmap-node">
+          <path :d="data" />
+        </g>
+      </svg>
   </div>
 </template>
 
@@ -48,29 +52,32 @@ export default {
 
     bus.$off('file-loaded', this.handleFileChange)
     bus.$off('file-changed', this.handleFileChange)
-    bus.$emit('file-changed', { id: this.tabId })
+    // bus.$emit('file-changed', { id: this.tabId })
   },
   methods: {
     showMarkmap (markdown) {
       // TODO: clear svg
       // const markdown = this.markdown
+      // d3.svg.selectAll('*').remove()
+      // d3.selectAll('mind-map').call(brush.clear())
+      var parseOpts = {
+        lists: false
+      }
+      var viewOpts = {
+        autoFit: true,
+        preset: 'colorful', // or default
+        linkShape: 'diagonal' // or bracket
+      }
       d3.json('static/preference.json', function (error, text) {
         if (error) {
           throw error
         }
 
-        if (markdown === '') {
-          return
+        if (markdown !== '') {
+          // console.log('markdown %s', markdown)
+          const data = transformHeadings(parseMarkdwon(markdown, parseOpts))
+          viewMindmap('svg#mindmap', data, viewOpts)
         }
-        console.log('markdown %s', markdown)
-
-        // console.log('markdown %s', markdown)
-        const data = transformHeadings(parseMarkdwon(markdown))
-        viewMindmap('svg#mindmap', data, {
-          autoFit: true,
-          preset: 'colorful', // or default
-          linkShape: 'diagonal' // or bracket
-        })
       })
     },
 
@@ -93,14 +100,18 @@ export default {
 }
 </script>
 
+<style scoped>
+    .mark-map .mind-map {
+        margin: 25px;
+        width: 90%;
+        height: 90%;
+    }
+</style>
+
 <style>
     .mark-map {
         height: calc(100vh - var(--titleBarHeight));
         box-sizing: border-box;
         overflow: auto;
-    }
-    .mark-map .svg-mindmap {
-        width: 90%;
-        height: 90%;
     }
 </style>
