@@ -1,19 +1,25 @@
 <template>
   <div class="mark-map" ref="markMap">
-      <svg class="svg-mindmap" ref="svgMindMap" id="mindmap"></svg>
+    <tree class="mind-map" ref="mindMap"
+        :data="tree" node-text="name" layoutType="horizontal" :zoomable="true"
+    >
+    </tree>
   </div>
 </template>
 
 <script>
 import { mapState } from 'vuex'
 import bus from '../../bus'
-import * as d3 from 'markmap/node_modules/d3'
-import 'markmap/lib/d3-flextree'
-const viewMindmap = require('markmap/lib/view.mindmap')
+import { tree } from 'vued3tree'
+// const viewMindmap = require('markmap/lib/view.mindmap')
 const parseMarkdwon = require('markmap/lib/parse.markdown')
 const transformHeadings = require('markmap/lib/transform.headings')
-
+// import * as d3 from 'markmap/node_modules/d3'
+// import 'markmap/lib/d3-flextree'
 export default {
+  components: {
+    tree
+  },
   props: {
     markdown: String
   },
@@ -22,7 +28,15 @@ export default {
       theme: state => state.preferences.theme,
       markMap: state => state.preferences.markMap,
       currentFile: state => state.editor.currentFile
-    })
+    }),
+    tree: function () {
+      const parseOpts = {
+        list: false,
+        links: false
+      }
+      window.console.log('tree: markdown %s', this.markdown)
+      return transformHeadings(parseMarkdwon(this.markdown, parseOpts))
+    }
   },
   data () {
     return {
@@ -39,7 +53,6 @@ export default {
       bus.$on('file-loaded', this.handleFileChange)
       bus.$on('file-changed', this.handleFileChange)
       this.tabId = pathname
-      this.showMarkmap(this.markdown)
     })
   },
   beforeDestroy () {
@@ -51,39 +64,30 @@ export default {
     bus.$emit('file-changed', { id: this.tabId })
   },
   methods: {
-    showMarkmap (markdown) {
-      // TODO: clear svg
-      // const markdown = this.markdown
-      d3.json('static/preference.json', function (error, text) {
-        if (error) {
-          throw error
-        }
+    transformMarkdown (markdown) {
+      this.tree = transformHeadings(parseMarkdwon(markdown))
+    },
 
-        if (markdown === '') {
-          return
-        }
-        console.log('markdown %s', markdown)
-
-        // console.log('markdown %s', markdown)
-        const data = transformHeadings(parseMarkdwon(markdown))
-        viewMindmap('svg#mindmap', data, {
-          autoFit: true,
-          preset: 'colorful', // or default
-          linkShape: 'diagonal' // or bracket
-        })
-      })
+    treeData () {
+      const markdown = this.markdown
+      return transformHeadings(parseMarkdwon(markdown))
     },
 
     // Another tab was selected - only listen to get changes but don't set history or other things.
     handleFileChange ({ id, markdown }) {
       this.prepareTabSwitch()
-      this.showMarkmap(markdown)
+      // this.transformMarkdown(markdown)
+      // window.console.log('handleFileChange: markdown %s', markdown)
+      // window.console.log('handleFileChange: tree %s', this.tree)
+      // window.console.log('handleFileChange: treeData %s', this.treeData())
       this.tabId = id
     },
 
     // Commit changes from old tab. Problem: tab was already switched, so commit changes with old tab id.
     prepareTabSwitch () {
       if (this.commitTimer) clearTimeout(this.commitTimer)
+      // window.console.log('prepareTabs: markdown %s', this.markdown)
+      // window.console.log('prepareTabs: text %s', this.text)
       if (this.tabId) {
         // this.$store.dispatch('LISTEN_FOR_CONTENT_CHANGE', { id: this.tabId, pathname })
         this.tabId = null // invalidate tab id
@@ -99,7 +103,8 @@ export default {
         box-sizing: border-box;
         overflow: auto;
     }
-    .mark-map .svg-mindmap {
+    .mark-map .mind-map {
+        margin: 25px;
         width: 90%;
         height: 90%;
     }
