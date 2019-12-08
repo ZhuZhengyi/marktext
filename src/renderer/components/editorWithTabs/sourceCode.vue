@@ -62,6 +62,7 @@ export default {
         lineNumbers: true,
         autofocus: true,
         lineWrapping: true,
+        keyMap: 'vim',
         styleActiveLine: true,
         direction: textDirection,
         // The amount of updates needed when scrolling. Settings this to >Infinity< or use CSS
