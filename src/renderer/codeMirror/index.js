@@ -12,6 +12,7 @@ import languages from './modes'
 import 'codemirror/lib/codemirror.css'
 import './index.css'
 import 'codemirror/theme/railscasts.css'
+import 'codemirror/keymap/vim'
 
 loadmode(codeMirror)
 overlayMode(codeMirror)
