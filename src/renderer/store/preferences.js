@@ -60,6 +60,7 @@ const state = {
   sideBarVisibility: false,
   tabBarVisibility: false,
   sourceCodeModeEnabled: false,
+  marpModeEnabled: false,
 
   searchExclusions: [],
   searchMaxFileSize: '',
@@ -75,6 +76,7 @@ const state = {
   typewriter: false, // typewriter mode
   focus: false, // focus mode
   sourceCode: false, // source code mode
+  marp: false, // source code mode
 
   // user configration
   imageFolderPath: '',

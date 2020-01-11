@@ -143,6 +143,7 @@ class AppMenu {
    */
   addEditorMenu (window, options = {}) {
     const isSourceMode = !!options.sourceCodeModeEnabled
+    const isMarpMode = !!options.marpModeEnabled
     const { windowMenus } = this
     windowMenus.set(window.id, this._buildEditorMenu(true))
 
@@ -152,7 +153,17 @@ class AppMenu {
     const sourceCodeModeMenuItem = menu.getMenuItemById('sourceCodeModeMenuItem')
     sourceCodeModeMenuItem.checked = isSourceMode
 
+    // Set marp editor if prefered.
+    const marpModeMenuItem = menu.getMenuItemById('marpModeMenuItem')
+    marpModeMenuItem.checked = isMarpMode
+
     if (isSourceMode) {
+      const typewriterModeMenuItem = menu.getMenuItemById('typewriterModeMenuItem')
+      const focusModeMenuItem = menu.getMenuItemById('focusModeMenuItem')
+      typewriterModeMenuItem.enabled = false
+      focusModeMenuItem.enabled = false
+    }
+    if (isMarpMode) {
       const typewriterModeMenuItem = menu.getMenuItemById('typewriterModeMenuItem')
       const focusModeMenuItem = menu.getMenuItemById('focusModeMenuItem')
       typewriterModeMenuItem.enabled = false
@@ -237,6 +248,7 @@ class AppMenu {
 
       // all other menu items are set automatically
       updateMenuItem(oldMenu, newMenu, 'sourceCodeModeMenuItem')
+      updateMenuItem(oldMenu, newMenu, 'marpModeMenuItem')
       updateMenuItem(oldMenu, newMenu, 'typewriterModeMenuItem')
       updateMenuItem(oldMenu, newMenu, 'focusModeMenuItem')
       updateMenuItem(oldMenu, newMenu, 'sideBarMenuItem')
