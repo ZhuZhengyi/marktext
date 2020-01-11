@@ -365,6 +365,11 @@
     "type": "boolean",
     "default": false
   },
+  "marpModeEnabled": {
+    "description": "View--Whether the marp mode is enabled by default.",
+    "type": "boolean"
+  },
+
   "searchExclusions": {
     "description": "Searcher--List of glob patterns to exclude from search.",
     "type": "array",
