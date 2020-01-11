@@ -14,13 +14,7 @@ export const typeMode = (win, type, item) => {
   const { checked } = item
   win.webContents.send('mt::editor-change-view', { type, checked })
 
-  if (type === 'sourceCode') {
-    const typewriterModeMenuItem = getMenuItemById(typewriterModeMenuItemId)
-    const focusModeMenuItem = getMenuItemById(focusModeMenuItemId)
-    typewriterModeMenuItem.enabled = !checked
-    focusModeMenuItem.enabled = !checked
-  }
-  if (type === 'markMap') {
+  if (type === 'sourceCode' || type === 'markMap' || type === 'marp') {
     const typewriterModeMenuItem = getMenuItemById(typewriterModeMenuItemId)
     const focusModeMenuItem = getMenuItemById(focusModeMenuItemId)
     typewriterModeMenuItem.enabled = !checked
@@ -71,6 +65,9 @@ export const viewLayoutChanged = (applicationMenu, changes) => {
         break
       case 'markMap':
         changeMenuByName('markMapModeMenuItem', value)
+        break
+      case 'marp':
+        changeMenuByName('marpModeMenuItem', value)
         break
       case 'typewriter':
         changeMenuByName(typewriterModeMenuItemId, value)

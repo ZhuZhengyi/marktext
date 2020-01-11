@@ -32,11 +32,22 @@ export default function (keybindings) {
       type: 'checkbox',
       checked: false,
       click (item, browserWindow, event) {
-        // if we call this function, the checked state is not set
         if (!event) {
           item.checked = !item.checked
         }
         actions.typeMode(browserWindow, 'markMap', item)
+      }
+    }, {
+      id: 'marpModeMenuItem',
+      label: 'Presetation Mode',
+      accelerator: keybindings.getAccelerator('view.marp-mode'),
+      type: 'checkbox',
+      checked: false,
+      click (item, browserWindow, event) {
+        if (!event) {
+          item.checked = !item.checked
+        }
+        actions.typeMode(browserWindow, 'marp', item)
       }
     }, {
       id: 'typewriterModeMenuItem',

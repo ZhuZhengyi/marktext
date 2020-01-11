@@ -637,7 +637,8 @@ const actions = {
         sideBarVisibility,
         tabBarVisibility,
         sourceCodeModeEnabled,
-        markMapModeEnabled
+        markMapModeEnabled,
+        marpModeEnabled
       } = config
 
       dispatch('SEND_INITIALIZED')
@@ -657,6 +658,11 @@ const actions = {
       commit('SET_MODE', {
         type: 'markMap',
         checked: !!markMapModeEnabled
+      })
+
+      commit('SET_MODE', {
+        type: 'marp',
+        checked: !!marpModeEnabled
       })
 
       if (addBlankTab) {
