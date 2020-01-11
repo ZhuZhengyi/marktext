@@ -99,6 +99,7 @@ class Keybindings {
       ['view.command-palette', 'CmdOrCtrl+Shift+P'],
       ['view.source-code-mode', 'CmdOrCtrl+Alt+S'],
       ['view.mark-map-mode', 'CmdOrCtrl+Alt+M'],
+      ['view.marp-mode', 'CmdOrCtrl+Alt+P'],
       ['view.typewriter-mode', 'CmdOrCtrl+Alt+T'],
       ['view.focus-mode', 'CmdOrCtrl+Shift+J'],
       ['view.toggle-sidebar', 'CmdOrCtrl+J'],
