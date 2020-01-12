@@ -14,6 +14,10 @@
           v-else-if="marp"
           :markdown="markdown"
         ></marp>
+        <mark-map
+          v-else-if="markMap"
+          :markdown="markdown"
+        ></mark-map>
         <editor
           v-else
           :markdown="markdown"
@@ -31,6 +35,7 @@ import Tabs from './tabs.vue'
 import Editor from './editor.vue'
 import SourceCode from './sourceCode.vue'
 import Marp from './presetation.vue'
+import MarkMap from './markMap.vue'
 import TabNotifications from './notifications.vue'
 
 export default {
@@ -53,6 +58,10 @@ export default {
       type: Boolean,
       required: true
     },
+    markMap: {
+      type: Boolean,
+      required: true
+    },
     showTabBar: {
       type: Boolean,
       required: true
@@ -71,6 +80,7 @@ export default {
     Editor,
     SourceCode,
     Marp,
+    MarkMap,
     TabNotifications
   }
 }

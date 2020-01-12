@@ -144,6 +144,7 @@ class AppMenu {
   addEditorMenu (window, options = {}) {
     const isSourceMode = !!options.sourceCodeModeEnabled
     const isMarpMode = !!options.marpModeEnabled
+    const isMarkMapMode = !!options.markMapModeEnabled
     const { windowMenus } = this
     windowMenus.set(window.id, this._buildEditorMenu(true))
 
@@ -156,7 +157,10 @@ class AppMenu {
     const marpModeMenuItem = menu.getMenuItemById('marpModeMenuItem')
     marpModeMenuItem.checked = isMarpMode
 
-    if (isSourceMode || isMarpMode) {
+    const markMapModeMenuItem = menu.getMenuItemById('markMapModeMenuItem')
+    markMapModeMenuItem.checked = isMarkMapMode
+
+    if (isSourceMode || isMarpMode || isMarkMapMode) {
       const typewriterModeMenuItem = menu.getMenuItemById('typewriterModeMenuItem')
       const focusModeMenuItem = menu.getMenuItemById('focusModeMenuItem')
       typewriterModeMenuItem.enabled = false
@@ -242,6 +246,7 @@ class AppMenu {
       // all other menu items are set automatically
       updateMenuItem(oldMenu, newMenu, 'sourceCodeModeMenuItem')
       updateMenuItem(oldMenu, newMenu, 'marpModeMenuItem')
+      updateMenuItem(oldMenu, newMenu, 'markMapModeMenuItem')
       updateMenuItem(oldMenu, newMenu, 'typewriterModeMenuItem')
       updateMenuItem(oldMenu, newMenu, 'focusModeMenuItem')
       updateMenuItem(oldMenu, newMenu, 'sideBarMenuItem')

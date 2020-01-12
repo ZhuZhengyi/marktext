@@ -63,6 +63,7 @@ const state = {
   tabBarVisibility: false,
   sourceCodeModeEnabled: false,
   marpModeEnabled: false,
+  markMapModeEnabled: false,
 
   searchExclusions: [],
   searchMaxFileSize: '',
@@ -78,7 +79,8 @@ const state = {
   typewriter: false, // typewriter mode
   focus: false, // focus mode
   sourceCode: false, // source code mode
-  marp: false, // source code mode
+  marp: false, // presidention mode
+  markMap: false, // mindmap mode
 
   // user configration
   imageFolderPath: '',

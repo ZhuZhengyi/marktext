@@ -23,6 +23,7 @@
         :cursor="cursor"
         :source-code="sourceCode"
         :marp="marp"
+        :mark-map="markMap"
         :show-tab-bar="showTabBar"
         :text-direction="textDirection"
         :platform="platform"
@@ -81,6 +82,7 @@ export default {
       showTabBar: state => state.layout.showTabBar,
       sourceCode: state => state.preferences.sourceCode,
       marp: state => state.preferences.marp,
+      markMap: state => state.preferences.markMap,
       theme: state => state.preferences.theme,
       textDirection: state => state.preferences.textDirection
     }),
