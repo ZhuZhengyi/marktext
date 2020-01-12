@@ -365,6 +365,10 @@
     "type": "boolean",
     "default": false
   },
+  "markMapModeEnabled": {
+    "description": "View--Whether the mark-map mode is enabled by default.",
+    "type": "boolean"
+  },
   "searchExclusions": {
     "description": "Searcher--List of glob patterns to exclude from search.",
     "type": "array",
