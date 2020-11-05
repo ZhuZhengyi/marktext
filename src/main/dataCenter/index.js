@@ -41,6 +41,11 @@ class DataCenter extends EventEmitter {
           owner: '',
           repo: '',
           branch: ''
+        },
+        gitee: {
+          giteeOwner: '',
+          giteeRepo: '',
+          giteeBranch: ''
         }
       }
     }
